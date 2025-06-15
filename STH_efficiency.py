@@ -204,33 +204,3 @@ results.to_csv("efficiency_results.csv", index=False)
 
 print("\nFinal Results:")
 print(results.to_string(index=False))
-
-# ----------------------------
-# Plotting photon flux vs photon energy
-# Photon Flux Spectrum and Absorption Threshold
-# ----------------------------
-
-import matplotlib.pyplot as plt
-plt.figure(figsize=(10, 6))
-plt.plot(data["Photon_Energy_eV"], data["Photon_Flux"], color='gray', label='AM1.5G Photon Flux')
-
-# Highlight absorbed region (Photon Energy ≥ Eg)
-plt.fill_between(data["Photon_Energy_eV"], 0, data["Photon_Flux"], 
-                 where=data["Photon_Energy_eV"] >= Eg, color='skyblue', alpha=0.5,
-                 label=f'Absorbed Photons (Eg = {Eg} eV)')
-
-# Add vertical line at Eg
-plt.axvline(Eg, color='red', linestyle='--', alpha=0.8)
-
-plt.xlim(0, 4)
-plt.ylim(0, 4e21)
-plt.xticks(np.arange(0, 4.0, 0.5), fontsize=14)
-plt.yticks(np.arange(0, 4e21, 0.5e21), fontsize=14)
-
-plt.xlabel('Photon Energy (eV)', fontsize=16)
-plt.ylabel('Photon Flux (photons / m² / s / eV)', fontsize=16)
-
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.savefig("Photon_Flux_vs_Energy.png", dpi=300)
